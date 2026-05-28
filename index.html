@@ -11,181 +11,166 @@
         :root { --vh: 1vh; }
         body { font-family: 'DM Sans', sans-serif; }
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
-        
+
         @keyframes glow { 0%,100%{text-shadow:0 0 10px #00f7ff,0 0 20px #00f7ff,0 0 40px #7c3aed}50%{text-shadow:0 0 20px #00f7ff,0 0 40px #00f7ff,0 0 80px #7c3aed} }
         @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
         @keyframes pulse-border { 0%,100%{border-color:#00f7ff}50%{border-color:#7c3aed} }
         @keyframes glitch { 0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,-1px)}80%{transform:translate(1px,2px)}100%{transform:translate(0)} }
         @keyframes dataflow { 0%{background-position:0% 50%}100%{background-position:200% 50%} }
         @keyframes fadeIn { from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)} }
-        
+
         .glow-text { animation: glow 2s ease-in-out infinite; }
         .float-anim { animation: float 3s ease-in-out infinite; }
         .pulse-border { animation: pulse-border 2s ease-in-out infinite; }
         .glitch:hover { animation: glitch 0.3s ease-in-out; }
         .data-flow { background: linear-gradient(90deg,#00f7ff,#7c3aed,#00f7ff); background-size:200%;animation:dataflow 3s linear infinite; }
         .fade-in { animation: fadeIn 0.3s ease-out; }
-        
-        .neon-btn { background:linear-gradient(135deg,#1e1b4b,#312e81); border:1px solid #00f7ff; box-shadow:0 0 10px rgba(0,247,255,0.3),inset 0 0 10px rgba(0,247,255,0.1); transition:all 0.3s; }
+
+        .neon-btn { background:linear-gradient(135deg,#1e1b4b,#312e81); border:1px solid #00f7ff; box-shadow:0 0 10px rgba(0,247,255,0.3),inset 0 0 10px rgba(0,247,255,0.1); transition:all 0.3s; cursor:pointer; }
         .neon-btn:hover { box-shadow:0 0 20px rgba(0,247,255,0.6),inset 0 0 20px rgba(0,247,255,0.2);transform:translateY(-2px); }
-        
-        .algo-block { cursor:grab;user-select:none;transition:all 0.2s; }
-        .algo-block:active { cursor:grabbing;transform:scale(1.05); }
+
+        .algo-block { cursor:pointer;user-select:none;transition:all 0.2s; }
+        .algo-block:active { transform:scale(1.05); }
         .algo-block.dragging { opacity:0.5; }
-        
+
         .drop-zone { border:2px dashed #4c1d95;min-height:50px;transition:all 0.2s; }
         .drop-zone.drag-over { border-color:#00f7ff;background:rgba(0,247,255,0.1); }
-        .drop-zone .algo-block { cursor:grab; }
-        
+
         .panel { background:rgba(15,10,40,0.85);border:1px solid rgba(124,58,237,0.3);backdrop-filter:blur(10px); }
-        
+
         .progress-bar { height:6px;border-radius:3px;overflow:hidden; }
         .progress-fill { height:100%;background:linear-gradient(90deg,#00f7ff,#7c3aed);transition:width 0.5s; }
 
         .screen { display:none; }
         .screen.active { display:flex; }
+
+        .level-card { cursor:pointer; }
+        .level-card:hover { border-color: #00f7ff; }
     </style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/editing_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
- </head>
- <body class="w-full overflow-hidden" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-  <!-- OPENING SCREEN -->
-  <div id="screen-opening" class="screen active flex-col items-center justify-center w-full relative" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-   <img src="https://images.pexels.com/photos/7915213/pexels-photo-7915213.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A dimly lit gaming arcade with neon lights and computers, creating a futuristic atmosphere." class="absolute inset-0 w-full h-full object-cover opacity-40" loading="lazy">
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
+ <body data-template-id="__page-root" class="w-full overflow-hidden" style="height:calc(100 * min(var(--vh,1vh),1vh))"><!-- OPENING SCREEN -->
+  <div id="screen-opening" class="screen active flex-col items-center justify-center w-full relative" style="height:calc(100 * min(var(--vh,1vh),1vh))"><img data-template-id="hero-bg" class="canva-image absolute inset-0 w-full h-full object-cover opacity-40" loading="lazy">
    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80"></div>
    <div class="relative z-10 text-center flex flex-col items-center gap-4">
-    <!-- Hologram effect circles -->
     <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full border border-cyan-400/20 float-anim"></div>
     <div class="flex items-center gap-4 mb-2">
-     <svg class="w-12 h-12 text-cyan-400 float-anim" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" /><circle cx="12" cy="12" r="2" />
+     <svg class="w-12 h-12 text-cyan-400 float-anim" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" /><circle cx="12" cy="12" r="2" />
      </svg>
-     <h1 class="font-orbitron font-black text-5xl md:text-7xl text-cyan-300 glow-text">Algorithm Detective</h1>
+     <h1 data-template-id="main-title" class="canva-text font-orbitron font-black text-5xl md:text-7xl glow-text"></h1>
     </div>
-    <p class="font-orbitron text-xl md:text-2xl text-purple-300 tracking-widest">Misteri Data Nilai Murid</p><img src="https://images.pexels.com/photos/9784243/pexels-photo-9784243.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A teenager stands in a dimly lit room surrounded by electronic gadgets, creating a futuristic tech vibe." class="w-32 h-32 rounded-full border-2 border-cyan-400/50 object-cover my-4 float-anim" loading="lazy">
-    <div class="flex gap-4 mt-6">
-     <button class="neon-btn font-orbitron font-bold text-cyan-300 px-8 py-3 rounded-lg text-lg glitch" onclick="startGame()">Mulai Misi</button> <button class="neon-btn font-orbitron font-bold text-purple-300 px-8 py-3 rounded-lg text-lg" onclick="showGuide()">Petunjuk</button> <button class="neon-btn font-orbitron font-bold text-gray-400 px-8 py-3 rounded-lg text-lg" onclick="exitGame()">Keluar</button>
-    </div><!-- Decorative icons -->
-    <div class="flex gap-6 mt-8 text-cyan-500/50">
-     <i data-lucide="code-2" class="w-6 h-6"></i> <i data-lucide="binary" class="w-6 h-6"></i> <i data-lucide="cpu" class="w-6 h-6"></i> <i data-lucide="database" class="w-6 h-6"></i> <i data-lucide="git-branch" class="w-6 h-6"></i>
+    <p data-template-id="sub-title" class="canva-text font-orbitron text-xl md:text-2xl tracking-widest"></p><img data-template-id="detective-img" class="canva-image w-32 h-32 rounded-full border-2 border-cyan-400/50 object-cover my-4 float-anim" loading="lazy">
+    <div class="flex gap-4 mt-6"><button data-template-id="btn-start" class="canva-button neon-btn font-orbitron font-bold px-8 py-3 rounded-lg text-lg glitch" onclick="startGame()"></button> <button data-template-id="btn-guide" class="canva-button neon-btn font-orbitron font-bold px-8 py-3 rounded-lg text-lg" onclick="showGuide()"></button> <button data-template-id="btn-exit" class="canva-button neon-btn font-orbitron font-bold px-8 py-3 rounded-lg text-lg" onclick="exitGame()"></button>
+    </div>
+    <div class="flex gap-6 mt-8 text-cyan-500/50"><i data-lucide="code-2" class="w-6 h-6"></i> <i data-lucide="binary" class="w-6 h-6"></i> <i data-lucide="cpu" class="w-6 h-6"></i> <i data-lucide="database" class="w-6 h-6"></i> <i data-lucide="git-branch" class="w-6 h-6"></i>
     </div>
    </div>
   </div><!-- GUIDE MODAL -->
   <div id="modal-guide" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80">
    <div class="panel rounded-xl p-8 max-w-lg w-full mx-4 fade-in">
-    <h2 class="font-orbitron font-bold text-2xl text-cyan-300 mb-4">Cara Bermain</h2>
+    <h2 data-template-id="guide-title" class="canva-text font-orbitron font-bold text-2xl mb-4"></h2>
     <div class="text-gray-300 space-y-2 text-sm">
-     <p>1. Pilih level yang ingin dimainkan dari peta level.</p>
-     <p>2. Baca deskripsi kasus dan instruksi misi di panel kiri.</p>
-     <p>3. Seret blok algoritma ke area solusi dengan urutan yang benar.</p>
-     <p>4. Klik 'Jalankan Algoritma' untuk memeriksa jawaban. Selesaikan sebelum waktu habis!</p>
-    </div><button class="neon-btn text-cyan-300 px-6 py-2 rounded-lg mt-6 font-orbitron" onclick="closeGuide()">Mengerti!</button>
+     <p data-template-id="guide-1" class="canva-text"></p>
+     <p data-template-id="guide-2" class="canva-text"></p>
+     <p data-template-id="guide-3" class="canva-text"></p>
+     <p data-template-id="guide-4" class="canva-text"></p>
+    </div><button data-template-id="btn-close-guide" class="canva-button neon-btn px-6 py-2 rounded-lg mt-6 font-orbitron" onclick="closeGuide()"></button>
    </div>
+  </div><!-- LEVEL SELECT -->
+  <div id="screen-levels" class="screen flex-col items-center justify-center w-full gap-6" style="height:calc(100 * min(var(--vh,1vh),1vh))">
+   <h2 data-template-id="levels-title" class="canva-text font-orbitron text-3xl font-bold glow-text"></h2>
+   <div class="grid grid-cols-5 gap-4 max-w-4xl w-full px-4"><button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 transition-all" onclick="selectLevel(0)"> <span class="text-2xl">📥</span> <span data-template-id="level-1-name" class="canva-text font-orbitron text-xs text-center"></span>
+     <div class="progress-bar w-full bg-gray-800">
+      <div class="progress-fill" style="width:0%" id="lp-0"></div>
+     </div><span class="text-xs text-green-400">⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 transition-all" onclick="selectLevel(1)"> <span class="text-2xl">📊</span> <span data-template-id="level-2-name" class="canva-text font-orbitron text-xs text-center"></span>
+     <div class="progress-bar w-full bg-gray-800">
+      <div class="progress-fill" style="width:0%" id="lp-1"></div>
+     </div><span class="text-xs text-yellow-400">⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 transition-all" onclick="selectLevel(2)"> <span class="text-2xl">🧮</span> <span data-template-id="level-3-name" class="canva-text font-orbitron text-xs text-center"></span>
+     <div class="progress-bar w-full bg-gray-800">
+      <div class="progress-fill" style="width:0%" id="lp-2"></div>
+     </div><span class="text-xs text-orange-400">⭐⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 transition-all" onclick="selectLevel(3)"> <span class="text-2xl">✅</span> <span data-template-id="level-4-name" class="canva-text font-orbitron text-xs text-center"></span>
+     <div class="progress-bar w-full bg-gray-800">
+      <div class="progress-fill" style="width:0%" id="lp-3"></div>
+     </div><span class="text-xs text-red-400">⭐⭐⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 transition-all" onclick="selectLevel(4)"> <span class="text-2xl">🏆</span> <span data-template-id="level-5-name" class="canva-text font-orbitron text-xs text-center"></span>
+     <div class="progress-bar w-full bg-gray-800">
+      <div class="progress-fill" style="width:0%" id="lp-4"></div>
+     </div><span class="text-xs text-purple-400">⭐⭐⭐⭐⭐</span> </button>
+   </div><button data-template-id="btn-back-menu" class="canva-button neon-btn font-orbitron text-sm px-6 py-2 rounded-lg mt-4" onclick="backToMenu()"></button>
   </div><!-- GAMEPLAY SCREEN -->
   <div id="screen-gameplay" class="screen flex-col w-full" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-   <!-- Top bar -->
    <div class="flex items-center justify-between px-4 py-2 bg-black/60 border-b border-purple-900/50">
-    <div class="flex items-center gap-2">
-     <i data-lucide="shield" class="w-5 h-5 text-cyan-400" style="stroke-width:1.5px"></i> <span id="level-label" class="font-orbitron text-cyan-300 text-sm">Level 1</span>
+    <div class="flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-cyan-400"></i> <span id="level-label" class="font-orbitron text-cyan-300 text-sm">Level 1</span>
     </div>
     <div class="data-flow h-0.5 flex-1 mx-4 rounded"></div>
     <div class="flex items-center gap-4">
-     <div class="flex items-center gap-1"><i data-lucide="star" class="w-4 h-4 text-yellow-400" style="stroke-width:1.5px"></i><span id="score-display" class="text-yellow-300 font-orbitron text-sm">0</span>
+     <div class="flex items-center gap-1">
+      <i data-lucide="star" class="w-4 h-4 text-yellow-400"></i><span id="score-display" class="text-yellow-300 font-orbitron text-sm">0</span>
      </div>
-     <div class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4 text-red-400" style="stroke-width:1.5px"></i><span id="timer-display" class="text-red-300 font-orbitron text-sm">60</span>
+     <div class="flex items-center gap-1">
+      <i data-lucide="clock" class="w-4 h-4 text-red-400"></i><span id="timer-display" class="text-red-300 font-orbitron text-sm">60</span>
      </div>
     </div>
-   </div><!-- Main gameplay area -->
-   <div class="flex flex-1 overflow-hidden">
-    <!-- Left Panel -->
+   </div>
+   <div class="flex flex-1 overflow-hidden"><!-- Left Panel -->
     <div class="panel w-1/4 p-4 m-2 rounded-xl overflow-y-auto">
-     <h3 class="font-orbitron text-cyan-400 text-sm font-bold mb-2">📋 DESKRIPSI KASUS</h3>
+     <h3 data-template-id="mission-label" class="canva-text font-orbitron text-sm font-bold mb-2"></h3>
      <p id="case-description" class="text-gray-300 text-xs mb-4"></p>
-     <h4 class="font-orbitron text-purple-400 text-xs font-bold mb-1">📌 INSTRUKSI MISI</h4>
+     <h4 data-template-id="instructions-label" class="canva-text font-orbitron text-xs font-bold mb-1"></h4>
      <ul id="instructions-list" class="text-gray-400 text-xs space-y-1 list-disc list-inside"></ul>
      <div class="mt-4">
-      <h4 class="font-orbitron text-green-400 text-xs font-bold mb-1">🎯 TARGET</h4>
+      <h4 data-template-id="target-label" class="canva-text font-orbitron text-xs font-bold mb-1"></h4>
       <p id="target-text" class="text-green-300 text-xs"></p>
      </div>
     </div><!-- Center Panel -->
     <div class="flex-1 flex flex-col p-2 gap-2">
-     <!-- Available blocks -->
      <div class="panel rounded-xl p-3 flex-shrink-0">
-      <p class="font-orbitron text-xs text-cyan-400 mb-2">🧩 BLOK ALGORITMA (seret atau klik)</p>
+      <p data-template-id="blocks-label" class="canva-text font-orbitron text-xs mb-2"></p>
       <div id="available-blocks" class="flex flex-wrap gap-2"></div>
-     </div><!-- Drop zone -->
+     </div>
      <div class="panel rounded-xl p-3 flex-1 overflow-y-auto">
-      <p class="font-orbitron text-xs text-purple-400 mb-2">📝 AREA SOLUSI (susun di sini)</p>
+      <p data-template-id="solution-label" class="canva-text font-orbitron text-xs mb-2"></p>
       <div id="solution-zone" class="drop-zone rounded-lg p-3 min-h-[120px] flex flex-col gap-2"></div>
      </div>
     </div><!-- Right Panel -->
     <div class="panel w-1/5 p-4 m-2 rounded-xl flex flex-col gap-3">
      <div>
-      <p class="font-orbitron text-xs text-yellow-400">⭐ SKOR</p>
+      <p data-template-id="score-label" class="canva-text font-orbitron text-xs"></p>
       <p id="score-big" class="font-orbitron text-2xl text-yellow-300 font-bold">0</p>
      </div>
      <div>
-      <p class="font-orbitron text-xs text-red-400">⏱️ WAKTU</p>
+      <p data-template-id="time-label" class="canva-text font-orbitron text-xs"></p>
       <p id="timer-big" class="font-orbitron text-2xl text-red-300 font-bold">60</p>
      </div>
      <div>
-      <p class="font-orbitron text-xs text-cyan-400 mb-1">📊 PROGRES</p>
+      <p data-template-id="progress-label" class="canva-text font-orbitron text-xs mb-1"></p>
       <div class="progress-bar bg-gray-800">
        <div id="progress-fill" class="progress-fill" style="width:0%"></div>
       </div>
       <p id="progress-text" class="text-cyan-300 text-xs mt-1">0/5</p>
      </div>
      <div class="mt-auto">
-      <p class="font-orbitron text-xs text-purple-400 mb-1">🏆 LENCANA</p>
-      <div id="badges-container" class="flex flex-wrap gap-1">
-       <span class="text-lg opacity-30">🔒</span> <span class="text-lg opacity-30">🔒</span> <span class="text-lg opacity-30">🔒</span> <span class="text-lg opacity-30">🔒</span> <span class="text-lg opacity-30">🔒</span>
+      <p data-template-id="badges-label" class="canva-text font-orbitron text-xs mb-1"></p>
+      <div id="badges-container" class="flex flex-wrap gap-1"><span class="text-lg opacity-30">🔒</span><span class="text-lg opacity-30">🔒</span><span class="text-lg opacity-30">🔒</span><span class="text-lg opacity-30">🔒</span><span class="text-lg opacity-30">🔒</span>
       </div>
      </div>
     </div>
    </div><!-- Bottom bar -->
-   <div class="flex items-center justify-center gap-3 px-4 py-3 bg-black/60 border-t border-purple-900/50">
-    <button class="neon-btn font-orbitron text-sm text-green-300 px-6 py-2 rounded-lg" onclick="runAlgorithm()">▶ Jalankan Algoritma</button> <button class="neon-btn font-orbitron text-sm text-yellow-300 px-6 py-2 rounded-lg" onclick="retryLevel()">🔄 Ulangi</button> <button class="neon-btn font-orbitron text-sm text-purple-300 px-6 py-2 rounded-lg" onclick="showHint()">💡 Petunjuk</button> <button id="btn-next" class="neon-btn font-orbitron text-sm text-cyan-300 px-6 py-2 rounded-lg hidden" onclick="nextLevel()">⏭ Level Berikutnya</button>
+   <div class="flex items-center justify-center gap-3 px-4 py-3 bg-black/60 border-t border-purple-900/50"><button data-template-id="btn-run" class="canva-button neon-btn font-orbitron text-sm px-6 py-2 rounded-lg" onclick="runAlgorithm()"></button> <button data-template-id="btn-retry" class="canva-button neon-btn font-orbitron text-sm px-6 py-2 rounded-lg" onclick="retryLevel()"></button> <button data-template-id="btn-hint" class="canva-button neon-btn font-orbitron text-sm px-6 py-2 rounded-lg" onclick="showHint()"></button> <button id="btn-next" data-template-id="btn-next" class="canva-button neon-btn font-orbitron text-sm px-6 py-2 rounded-lg hidden" onclick="nextLevel()"></button>
    </div>
   </div><!-- FEEDBACK POPUP -->
   <div id="popup-feedback" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-   <div id="popup-content" class="panel rounded-xl p-8 text-center fade-in max-w-sm mx-4">
+   <div class="panel rounded-xl p-8 text-center fade-in max-w-sm mx-4">
     <div id="popup-icon" class="text-5xl mb-3"></div>
     <h3 id="popup-title" class="font-orbitron text-xl font-bold mb-2"></h3>
     <p id="popup-msg" class="text-gray-300 text-sm mb-4"></p><button class="neon-btn font-orbitron text-sm text-cyan-300 px-6 py-2 rounded-lg" onclick="closePopup()">OK</button>
    </div>
-  </div><!-- Level Select (shown after opening) -->
-  <div id="screen-levels" class="screen flex-col items-center justify-center w-full gap-6" style="height:calc(100 * min(var(--vh,1vh),1vh))">
-   <h2 class="font-orbitron text-3xl font-bold text-cyan-300 glow-text">Pilih Level Misi</h2>
-   <div class="grid grid-cols-5 gap-4 max-w-4xl w-full px-4">
-    <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 hover:border-cyan-400 transition-all" onclick="selectLevel(0)"> <span class="text-2xl">📥</span> <span class="font-orbitron text-xs text-cyan-300 text-center">Input Data Murid</span>
-     <div class="progress-bar w-full bg-gray-800">
-      <div class="progress-fill" style="width:0%" id="lp-0"></div>
-     </div><span class="text-xs text-green-400">⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 hover:border-cyan-400 transition-all" onclick="selectLevel(1)"> <span class="text-2xl">📊</span> <span class="font-orbitron text-xs text-purple-300 text-center">Nilai Max &amp; Min</span>
-     <div class="progress-bar w-full bg-gray-800">
-      <div class="progress-fill" style="width:0%" id="lp-1"></div>
-     </div><span class="text-xs text-yellow-400">⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 hover:border-cyan-400 transition-all" onclick="selectLevel(2)"> <span class="text-2xl">🧮</span> <span class="font-orbitron text-xs text-cyan-300 text-center">Hitung Rata-Rata</span>
-     <div class="progress-bar w-full bg-gray-800">
-      <div class="progress-fill" style="width:0%" id="lp-2"></div>
-     </div><span class="text-xs text-orange-400">⭐⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 hover:border-cyan-400 transition-all" onclick="selectLevel(3)"> <span class="text-2xl">✅</span> <span class="font-orbitron text-xs text-purple-300 text-center">Status Kelulusan</span>
-     <div class="progress-bar w-full bg-gray-800">
-      <div class="progress-fill" style="width:0%" id="lp-3"></div>
-     </div><span class="text-xs text-red-400">⭐⭐⭐⭐</span> </button> <button class="level-card panel rounded-xl p-4 flex flex-col items-center gap-2 hover:border-cyan-400 transition-all" onclick="selectLevel(4)"> <span class="text-2xl">🏆</span> <span class="font-orbitron text-xs text-cyan-300 text-center">BOSS: Analisis Kompleks</span>
-     <div class="progress-bar w-full bg-gray-800">
-      <div class="progress-fill" style="width:0%" id="lp-4"></div>
-     </div><span class="text-xs text-purple-400">⭐⭐⭐⭐⭐</span> </button>
-   </div><button class="neon-btn font-orbitron text-sm text-gray-300 px-6 py-2 rounded-lg mt-4" onclick="backToMenu()">← Kembali ke Menu</button>
   </div>
+  <script src="/_sdk/editing_sdk.js"></script>
   <script>
-        // Initialize Lucide icons when ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                if (window.lucide) lucide.createIcons();
-            });
-        } else {
-            if (window.lucide) lucide.createIcons();
-        }
+        if (window.lucide) lucide.createIcons();
 
-        // Game state
         let currentLevel = 0;
         let score = 0;
         let timer = 60;
@@ -260,19 +245,18 @@
 
         function loadLevel() {
             const lvl = levels[currentLevel];
-            document.getElementById('level-label').textContent = `Level ${currentLevel+1}`;
+            document.getElementById('level-label').textContent = 'Level ' + (currentLevel + 1);
             document.getElementById('case-description').textContent = lvl.desc;
             document.getElementById('target-text').textContent = lvl.target;
-            
+
             const instrList = document.getElementById('instructions-list');
             instrList.innerHTML = '';
             lvl.instructions.forEach(i => { const li = document.createElement('li'); li.textContent = i; instrList.appendChild(li); });
 
-            // Render blocks
             const blocksContainer = document.getElementById('available-blocks');
             blocksContainer.innerHTML = '';
             const shuffled = [...lvl.blocks].sort(() => Math.random() - 0.5);
-            shuffled.forEach((block, i) => {
+            shuffled.forEach(block => {
                 const el = document.createElement('div');
                 el.className = 'algo-block px-3 py-2 rounded-lg text-xs font-mono border pulse-border';
                 el.style.background = 'rgba(30,27,75,0.9)';
@@ -282,14 +266,13 @@
                 el.dataset.blockIdx = lvl.blocks.indexOf(block);
                 el.addEventListener('dragstart', handleDragStart);
                 el.addEventListener('dragend', handleDragEnd);
+                el.addEventListener('click', handleBlockClick);
                 blocksContainer.appendChild(el);
             });
 
-            // Clear solution zone
             document.getElementById('solution-zone').innerHTML = '';
-            document.querySelector('[data-template-id="btn-next"]').classList.add('hidden');
+            document.getElementById('btn-next').classList.add('hidden');
 
-            // Timer
             timer = lvl.time;
             updateTimerDisplay();
             if (timerInterval) clearInterval(timerInterval);
@@ -308,14 +291,25 @@
         function updateScoreDisplay() {
             document.getElementById('score-display').textContent = score;
             document.getElementById('score-big').textContent = score;
-            document.getElementById('progress-fill').style.width = `${(completedLevels.length/5)*100}%`;
-            document.getElementById('progress-text').textContent = `${completedLevels.length}/5`;
+            document.getElementById('progress-fill').style.width = (completedLevels.length / 5 * 100) + '%';
+            document.getElementById('progress-text').textContent = completedLevels.length + '/5';
         }
 
         // Drag and drop
         let draggedEl = null;
         function handleDragStart(e) { draggedEl = e.target; e.target.classList.add('dragging'); }
         function handleDragEnd(e) { e.target.classList.remove('dragging'); draggedEl = null; }
+
+        function handleBlockClick(e) {
+            const block = e.currentTarget;
+            const clone = block.cloneNode(true);
+            clone.draggable = false;
+            clone.style.cursor = 'pointer';
+            clone.removeEventListener('click', handleBlockClick);
+            clone.addEventListener('click', function() { this.remove(); });
+            document.getElementById('solution-zone').appendChild(clone);
+            block.remove();
+        }
 
         const solutionZone = document.getElementById('solution-zone');
         solutionZone.addEventListener('dragover', e => { e.preventDefault(); solutionZone.classList.add('drag-over'); });
@@ -327,36 +321,23 @@
                 const clone = draggedEl.cloneNode(true);
                 clone.draggable = false;
                 clone.style.cursor = 'pointer';
-                clone.addEventListener('click', () => clone.remove());
+                clone.addEventListener('click', function() { this.remove(); });
                 solutionZone.appendChild(clone);
                 draggedEl.remove();
             }
-        });
-
-        // Also support click-to-add for mobile
-        document.getElementById('available-blocks').addEventListener('click', e => {
-            const block = e.target.closest('.algo-block');
-            if (!block) return;
-            const clone = block.cloneNode(true);
-            clone.draggable = false;
-            clone.style.cursor = 'pointer';
-            clone.addEventListener('click', () => { clone.remove(); });
-            solutionZone.appendChild(clone);
-            block.remove();
         });
 
         function runAlgorithm() {
             const lvl = levels[currentLevel];
             const placed = [...solutionZone.querySelectorAll('.algo-block')];
             const placedIdxs = placed.map(el => parseInt(el.dataset.blockIdx));
-            
+
             if (placedIdxs.length !== lvl.solution.length) {
                 showPopup('❌','Kesalahan Logika','Jumlah blok belum sesuai. Periksa kembali algoritma kamu!');
                 return;
             }
-            
-            const correct = JSON.stringify(placedIdxs) === JSON.stringify(lvl.solution);
-            if (correct) {
+
+            if (JSON.stringify(placedIdxs) === JSON.stringify(lvl.solution)) {
                 clearInterval(timerInterval);
                 const bonus = Math.max(0, timer) * 2;
                 score += 100 + bonus;
@@ -364,18 +345,18 @@
                 updateScoreDisplay();
                 updateBadges();
                 document.getElementById('btn-next').classList.remove('hidden');
-                showPopup('✅','Algoritma Benar!',`+${100+bonus} poin! Kamu berhasil menyelesaikan misi ini.`);
-                document.getElementById(`lp-${currentLevel}`).style.width = '100%';
+                showPopup('✅','Algoritma Benar!', '+' + (100 + bonus) + ' poin! Kamu berhasil menyelesaikan misi ini.');
+                document.getElementById('lp-' + currentLevel).style.width = '100%';
             } else {
                 showPopup('❌','Kesalahan Logika','Urutan blok belum benar. Coba susun ulang algoritma!');
             }
         }
 
         function retryLevel() { loadLevel(); }
-        
+
         function showHint() {
             const lvl = levels[currentLevel];
-            showPopup('💡','Petunjuk',`Langkah pertama: "${lvl.blocks[lvl.solution[0]]}"`);
+            showPopup('💡','Petunjuk','Langkah pertama: "' + lvl.blocks[lvl.solution[0]] + '"');
         }
 
         function nextLevel() {
@@ -402,7 +383,8 @@
             document.getElementById('popup-msg').textContent = msg;
             document.getElementById('popup-feedback').classList.remove('hidden');
         }
+
         function closePopup() { document.getElementById('popup-feedback').classList.add('hidden'); }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a02a96916d3dfda8',t:'MTc3OTk0MzI5OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a02af5d12d6b3df0',t:'MTc3OTk0NzIwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
