@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id">
- <head>
+ <head><script src="/_sdk/telemetry_sdk.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Algorithm Detective</title>
@@ -39,7 +39,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
- <script src="/_sdk/telemetry_sdk.js"></script></head>
+ </head>
  <body data-template-id="__page-root" class="w-full min-h-screen">
   <!-- LEVEL SELECT -->
   <div id="screen-levels" class="screen active flex-col items-center justify-center w-full min-h-screen gap-6 p-4">
@@ -83,9 +83,9 @@
      </div>
     </div><!-- Center Panel (Expanded) -->
     <div class="flex-1 flex flex-col p-2 gap-2 min-w-0">
-     <div class="panel p-3 flex-shrink-0">
-      <p class="font-orbitron text-xs mb-2 text-purple-700 font-bold">🧩 BLOK ALGORITMA (seret atau klik)</p>
-      <div id="available-blocks" class="flex flex-wrap gap-2"></div>
+     <div class="panel p-2 flex-shrink-0">
+      <p class="font-orbitron text-xs mb-1 text-purple-700 font-bold">🧩 BLOK ALGORITMA (seret atau klik)</p>
+      <div id="available-blocks" class="flex flex-wrap gap-1 overflow-y-auto max-h-24"></div>
      </div>
      <div class="panel p-4 flex-1 overflow-y-auto">
       <p class="font-orbitron text-xs mb-3 text-blue-600 font-bold">📝 AREA SOLUSI (susun di sini)</p>
@@ -233,7 +233,7 @@
       shuffled.forEach(idx => {
         const block = lvl.blocks[idx];
         const el = document.createElement('div');
-        el.className = 'algo-block px-4 py-3 rounded-lg text-sm font-mono border-2 border-purple-400 bg-purple-100 text-purple-900 font-semibold';
+        el.className = 'algo-block px-2 py-1 rounded text-xs font-mono border border-purple-400 bg-purple-100 text-purple-900 font-semibold';
         el.textContent = block;
         el.draggable = true;
         el.dataset.blockIdx = idx;
@@ -268,23 +268,23 @@
 
     function createSolutionItem(clone) {
       const item = document.createElement('div');
-      item.className = 'solution-item flex items-center gap-2 p-2 bg-purple-50 rounded border border-purple-300';
+      item.className = 'solution-item flex items-center gap-1 p-1 bg-purple-50 rounded border border-purple-300';
       clone.draggable = true;
       clone.style.cursor = 'grab';
       clone.addEventListener('dragstart', handleDragStart);
       clone.addEventListener('dragend', handleDragEnd);
-      clone.className = 'algo-block flex-1 px-3 py-2 rounded text-xs font-mono border border-purple-300 bg-purple-100 text-purple-800';
+      clone.className = 'algo-block flex-1 px-2 py-1 rounded text-xs font-mono border border-purple-300 bg-purple-100 text-purple-800';
       
       const closeBtn = document.createElement('button');
       closeBtn.type = 'button';
       closeBtn.textContent = '✕';
-      closeBtn.className = 'bg-red-400 text-white rounded w-5 h-5 text-xs font-bold cursor-pointer flex-shrink-0 hover:bg-red-500';
+      closeBtn.className = 'bg-red-400 text-white rounded w-4 h-4 text-xs font-bold cursor-pointer flex-shrink-0 hover:bg-red-500 flex items-center justify-center';
       closeBtn.onclick = function(evt) {
         evt.stopPropagation();
         const blockIdx = parseInt(clone.dataset.blockIdx);
         const lvl = levels[currentLevel];
         const newBlock = document.createElement('div');
-        newBlock.className = 'algo-block px-3 py-2 rounded-lg text-xs font-mono border border-purple-300 bg-purple-50 text-purple-800';
+        newBlock.className = 'algo-block px-2 py-1 rounded text-xs font-mono border border-purple-300 bg-purple-50 text-purple-800';
         newBlock.textContent = lvl.blocks[blockIdx];
         newBlock.draggable = true;
         newBlock.dataset.blockIdx = blockIdx;
@@ -415,5 +415,5 @@
       }
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a03a703c6f0c86a5',t:'MTc4MDEwOTUwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a09d6c4f6d9b6b9e',t:'MTc4MTE0NzQzMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
